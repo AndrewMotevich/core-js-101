@@ -155,8 +155,9 @@ function unbracketTag(/* str */str) {
  *   'Thunderstruck' => 'THUNDERSTRUCK'
  *  'abcdefghijklmnopqrstuvwxyz' => 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
  */
-function convertToUpperCase(/* str */) {
-  throw new Error('Not implemented');
+function convertToUpperCase(str) {
+  // throw new Error('Not implemented');
+  return str.toUpperCase();
 }
 
 /**
@@ -174,8 +175,10 @@ function convertToUpperCase(/* str */) {
  *   ],
  *   'info@gmail.com' => ['info@gmail.com']
  */
-function extractEmails(/* str */) {
-  throw new Error('Not implemented');
+function extractEmails(str) {
+  // throw new Error('Not implemented');
+  // const array = [];
+  return str.split(';');
 }
 
 /**
@@ -205,6 +208,7 @@ function getRectangleString(/* width, height */) {
   throw new Error('Not implemented');
 }
 
+
 /**
  * Encode specified string with ROT13 cipher
  * See details:  https://en.wikipedia.org/wiki/ROT13
@@ -221,8 +225,20 @@ function getRectangleString(/* width, height */) {
  *    => 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'
  *
  */
-function encodeToRot13(/* str */) {
-  throw new Error('Not implemented');
+function encodeToRot13(str) {
+  // throw new Error('Not implemented');
+  const array = [];
+  const regex = /[!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]/;
+  str.split('').forEach((element) => {
+    if ((regex.test(element)) || (element === ' ')) {
+      array.push(element);
+    } else if (element === element.toUpperCase()) {
+      array.push(String.fromCharCode(((element.charCodeAt() - 65 + 13) % 26) + 65));
+    } else {
+      array.push(String.fromCharCode(((element.charCodeAt() - 97 + 13) % 26) + 97));
+    }
+  });
+  return array.join('');
 }
 
 /**
@@ -240,7 +256,9 @@ function encodeToRot13(/* str */) {
  */
 function isString(/* value */) {
   throw new Error('Not implemented');
+  // return (typeof value === 'string');
 }
+
 
 /**
  * Returns playid card id.
@@ -266,9 +284,17 @@ function isString(/* value */) {
  *   'Q♠' => 50
  *   'K♠' => 51
  */
-function getCardId(/* value */) {
-  throw new Error('Not implemented');
+function getCardId(value) {
+  const cardDeck = [
+    'A♣', '2♣', '3♣', '4♣', '5♣', '6♣', '7♣', '8♣', '9♣', '10♣', 'J♣', 'Q♣', 'K♣',
+    'A♦', '2♦', '3♦', '4♦', '5♦', '6♦', '7♦', '8♦', '9♦', '10♦', 'J♦', 'Q♦', 'K♦',
+    'A♥', '2♥', '3♥', '4♥', '5♥', '6♥', '7♥', '8♥', '9♥', '10♥', 'J♥', 'Q♥', 'K♥',
+    'A♠', '2♠', '3♠', '4♠', '5♠', '6♠', '7♠', '8♠', '9♠', '10♠', 'J♠', 'Q♠', 'K♠',
+  ];
+  return cardDeck.indexOf(value);
+  // throw new Error('Not implemented');
 }
+
 
 module.exports = {
   concatenateStrings,
